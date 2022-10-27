@@ -1,0 +1,287 @@
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\QMSWebAPI.dll.config
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\QMSWebAPI.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\QMSWebAPI.pdb
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\csc.exe
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\csc.exe.config
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\csc.rsp
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\csi.exe
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\csi.exe.config
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\csi.rsp
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.Managed.Core.targets
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.AppContext.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Collections.Immutable.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Console.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Globalization.Calendars.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.IO.Compression.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.IO.FileSystem.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Net.Http.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Net.Sockets.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Reflection.Metadata.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.ValueTuple.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Xml.XmlDocument.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Xml.XPath.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\vbc.exe
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\vbc.exe.config
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\vbc.rsp
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\VBCSCompiler.exe
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\roslyn\VBCSCompiler.exe.config
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\Dapper.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\Newtonsoft.Json.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\System.Net.Http.Formatting.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\System.Web.Http.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\System.Web.Http.WebHost.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\Dapper.xml
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\Newtonsoft.Json.xml
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\System.Net.Http.Formatting.xml
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\System.Web.Http.xml
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\System.Web.Http.WebHost.xml
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\obj\Debug\WebAPI.csproj.AssemblyReference.cache
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\obj\Debug\WebAPI.csproj.CoreCompileInputs.cache
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\obj\Debug\WebAPI.csproj.CopyComplete
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\obj\Debug\QMSWebAPI.dll
+D:\KABIR SQ\Abdullah Pandrive\Abdullah\QMS API - Md Abdullah\SQQMSWebAPI\QMSWebAPI\obj\Debug\QMSWebAPI.pdb
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\QMSWebAPI.dll.config
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\QMSWebAPI.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\QMSWebAPI.pdb
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\csc.exe
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\csc.exe.config
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\csc.rsp
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\csi.exe
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\csi.exe.config
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\csi.rsp
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.AppContext.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Console.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.IO.Compression.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Net.Http.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Net.Sockets.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.ValueTuple.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Xml.XPath.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\vbc.exe
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\vbc.exe.config
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\vbc.rsp
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\Dapper.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\Newtonsoft.Json.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\System.Web.Http.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\Dapper.xml
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\Newtonsoft.Json.xml
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\System.Web.Http.xml
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\obj\Debug\WebAPI.csproj.CoreCompileInputs.cache
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\obj\Debug\WebAPI.csproj.CopyComplete
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\obj\Debug\QMSWebAPI.dll
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\obj\Debug\QMSWebAPI.pdb
+C:\Users\tanzilaprianka\OneDrive - SQ Group\Desktop\SQWebAPI\QMSWebAPI\obj\Debug\WebAPI.csproj.AssemblyReference.cache
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\QMSWebAPI.dll.config
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\QMSWebAPI.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\QMSWebAPI.pdb
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csc.exe
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csc.exe.config
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csc.rsp
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csi.exe
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csi.exe.config
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csi.rsp
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.AppContext.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Collections.Immutable.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Console.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Globalization.Calendars.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.Compression.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.FileSystem.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Net.Http.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Net.Sockets.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Reflection.Metadata.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.ValueTuple.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.XPath.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\vbc.exe
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\vbc.exe.config
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\vbc.rsp
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\VBCSCompiler.exe
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\VBCSCompiler.exe.config
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\Dapper.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.DataSet.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\Newtonsoft.Json.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\System.Net.Http.Formatting.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.WebHost.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\Dapper.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.pdb
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.DataSet.pdb
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.DataSet.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\Newtonsoft.Json.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\System.Net.Http.Formatting.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.WebHost.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\WebAPI.csproj.AssemblyReference.cache
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\WebAPI.csproj.CoreCompileInputs.cache
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\WebAPI.csproj.CopyComplete
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\QMSWebAPI.dll
+D:\Rabby\Kingship\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\QMSWebAPI.pdb
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\QMSWebAPI.dll.config
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\QMSWebAPI.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\QMSWebAPI.pdb
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csc.exe
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csc.exe.config
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csc.rsp
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csi.exe
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csi.exe.config
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\csi.rsp
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.Managed.Core.targets
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.AppContext.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Collections.Immutable.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Console.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Globalization.Calendars.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.Compression.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.FileSystem.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Net.Http.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Net.Sockets.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Reflection.Metadata.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.ValueTuple.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.XmlDocument.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.XPath.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\vbc.exe
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\vbc.exe.config
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\vbc.rsp
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\VBCSCompiler.exe
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\roslyn\VBCSCompiler.exe.config
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\Dapper.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.DataSet.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\Newtonsoft.Json.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\System.Net.Http.Formatting.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.WebHost.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\Dapper.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.pdb
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.DataSet.pdb
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\ExcelDataReader.DataSet.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\Newtonsoft.Json.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\System.Net.Http.Formatting.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\System.Web.Http.WebHost.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\WebAPI.csproj.CoreCompileInputs.cache
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\WebAPI.csproj.CopyComplete
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\QMSWebAPI.dll
+D:\APIProject\EnergyIncentiveKInship\QMSWebAPI\obj\Debug\QMSWebAPI.pdb
