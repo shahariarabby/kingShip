@@ -78,6 +78,23 @@ namespace QMSWebAPI.Models
             get;
             set;
         }
+
+        public string BusinessUnit
+        {
+            get;
+            set;
+        }
+
+        public string Designation
+        {
+            get;
+            set;
+        }
+        public string Department
+        {
+            get;
+            set;
+        }
         public LoginModel()
         {
         }

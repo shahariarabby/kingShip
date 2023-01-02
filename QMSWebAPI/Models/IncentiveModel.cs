@@ -21,6 +21,9 @@ namespace QMSWebAPI.Models
         public int OperationID { get; set; }
         public string OperationName { get; set; }
         public int BarcodeNo { get; set; }
+        public int AllocatedQty { get; set; }
+        public int UsedQty { get; set; }
+        public int RemainingQty { get; set; }
         public string BarcoadCount { get; set; }
         public string BusinessUnit { get; set; }
         public string ProductionFloor { get; set; }

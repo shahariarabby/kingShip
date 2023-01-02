@@ -26,10 +26,6 @@ namespace QMSWebAPI.DAL
     {
         private DataAccessManager accessManager = new DataAccessManager();
 
-
-        private string connStr = ConfigurationManager.ConnectionStrings["Kinship"].ConnectionString;
-        public SqlConnection conn = new SqlConnection(DBConnection.GetConnectionString());
-
         #region Sustainability Survey
         public ResultResponse SaveSustainabilitySurvey(List<SustainabilitySurvey> sustainabilitySurveys)
         {
@@ -72,7 +68,7 @@ namespace QMSWebAPI.DAL
             }
 
         }
-        public SustainabilitySurvey GetSustainabilitySurveyByUser(long UserId)
+        public SustainabilitySurvey GetSustainabilitySurveyByUser(string UserId)
         {
             try
             {
@@ -84,11 +80,6 @@ namespace QMSWebAPI.DAL
                 SustainabilitySurvey sustainabilitySurvey = new SustainabilitySurvey();
                 List<SqlParameter> aParameters = new List<SqlParameter>();
                 aParameters.Add(new SqlParameter("@UserId", UserId));
-                //aParameters.Add(new SqlParameter("@BusinessUnitId", sustainabilitySurvey.BusinessUnitId));
-
-                //SqlParameter buyr = new SqlParameter("@buyerId", (object)buyerId ?? DBNull.Value);
-
-                //List<Styles> list = conn.Database.SqlQuery<SustainabilitySurvey>("GetStyleByBuyer @buyerId", buyr).ToList();
 
                 SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetSustainabilitySurveyByUserId", aParameters);
 
@@ -103,6 +94,8 @@ namespace QMSWebAPI.DAL
                     sustainabilitySurvey.Status = (bool)dr["Status"];
 
                 }
+
+
                 return sustainabilitySurvey;
 
             }
@@ -170,7 +163,6 @@ namespace QMSWebAPI.DAL
                 accessManager.SqlConnectionClose();
             }
         }
-
         public CopyDailyTaskList GetCopyDailyTaskList(string type)
         {
             try
@@ -212,6 +204,48 @@ namespace QMSWebAPI.DAL
 
 
                     //dailyTaskList.Add(dailyTaskListVM);
+                }
+                return dailyTaskListVM;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+        public DailyTaskList GetDailyTaskListById(long taskId)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                List<CopyDailyTaskList> dailyTaskList = new List<CopyDailyTaskList>();
+
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@TaskId", taskId));
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetDailyTaskListById", aParameters);
+
+                DailyTaskList dailyTaskListVM = new DailyTaskList();
+                while (dr.Read())
+                {
+                    dailyTaskListVM.Id = (long)dr["Id"];
+                    dailyTaskListVM.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    dailyTaskListVM.BanglaName = dr["BanglaName"].ToString();
+                    dailyTaskListVM.EnglishName = dr["EnglishName"].ToString();
+                    dailyTaskListVM.Type = dr["Type"].ToString();
+                    dailyTaskListVM.ImageName = dr["ImageName"].ToString();
+                    dailyTaskListVM.ImageUrl = dr["ImageUrl"].ToString();
+                    dailyTaskListVM.ImagePath = dr["ImagePath"].ToString();
+                    dailyTaskListVM.InfoLink = dr["InfoLink"].ToString();
+                    dailyTaskListVM.Co2 = dr["Co2"].ToString();
+                    dailyTaskListVM.Water = dr["Water"].ToString();
+                    dailyTaskListVM.Energy = dr["Energy"].ToString();
+                    dailyTaskListVM.Kindness = dr["Kindness"].ToString();
+
+                    dailyTaskListVM.SustainabilityCategoryId = (long)dr["SustainabilityCategoryId"];
                 }
                 return dailyTaskListVM;
             }
@@ -1129,6 +1163,45 @@ namespace QMSWebAPI.DAL
                 }
                 else
                 {
+                    var dailyTaskId = GetDailyTaskListById(dailyTask.DailyTaskListId);
+
+                    if (dailyTaskId.Water == "")
+                    {
+                        dailyTask.Water = 0;
+                    }
+                    else
+                    {
+
+                        dailyTask.Water = decimal.Parse(dailyTaskId.Water);
+                    }
+                    if (dailyTaskId.Energy == "")
+                    {
+                        dailyTask.Energy = 0;
+                    }
+                    else
+                    {
+
+                        dailyTask.Energy = decimal.Parse(dailyTaskId.Energy);
+                    }
+                    if (dailyTaskId.Co2 == "")
+                    {
+                        dailyTask.Co2 = 0;
+                    }
+                    else
+                    {
+
+                        dailyTask.Co2 = decimal.Parse(dailyTaskId.Co2);
+                    }
+                    if (dailyTaskId.Kindness == "")
+                    {
+                        dailyTask.Kindness = 0;
+                    }
+                    else
+                    {
+
+                        dailyTask.Kindness = decimal.Parse(dailyTaskId.Kindness);
+                    }
+
                     accessManager.SqlConnectionOpen(DataBase.KinshipDB);
 
                     bool status = true;
@@ -1143,6 +1216,10 @@ namespace QMSWebAPI.DAL
                     aParameters.Add(new SqlParameter("@Type", dailyTask.Type));
                     aParameters.Add(new SqlParameter("@Action", dailyTask.Action));
                     //aParameters.Add(new SqlParameter("@LevelUp", dailyTask.LevelUp));
+                    aParameters.Add(new SqlParameter("@Co2", dailyTask.Co2));
+                    aParameters.Add(new SqlParameter("@Water", dailyTask.Water));
+                    aParameters.Add(new SqlParameter("@Energy", dailyTask.Energy));
+                    aParameters.Add(new SqlParameter("@Kindness", dailyTask.Kindness));
 
                     result.isSuccess = accessManager.SaveData("sp_SaveDailyTask", aParameters);
 
@@ -1250,10 +1327,777 @@ namespace QMSWebAPI.DAL
             }
 
         }
+
+
+        // new method 
+
+        public DailyTaskListViewModel GetDailyTaskListAndDetailsAllType(string type)
+        {
+            try
+            {
+                var list = GetDailyTaskListByType(type);
+                var copyList = GetCopyDailyTaskList(type);
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                DailyTaskListViewModel dailyTaskListVM = new DailyTaskListViewModel();
+                foreach (var dailyTask in list)
+                {
+                    if (copyList.Id > 0)
+                    {
+
+
+                        var dateTime = copyList.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
+                        dailyTaskListVM.Id = copyList.DailyTaskListId;
+                        dailyTaskListVM.CreateDate = dateTime.Split(' ')[0];
+                        dailyTaskListVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                        dailyTaskListVM.BanglaName = copyList.BanglaName.ToString();
+                        dailyTaskListVM.EnglishName = copyList.EnglishName.ToString();
+                        dailyTaskListVM.Type = copyList.Type.ToString();
+                        dailyTaskListVM.ImageName = copyList.ImageName.ToString();
+                        dailyTaskListVM.ImageUrl = copyList.ImageUrl.ToString();
+                        dailyTaskListVM.ImagePath = copyList.ImagePath.ToString();
+                        dailyTaskListVM.InfoLink = copyList.InfoLink.ToString();
+                        dailyTaskListVM.SustainabilityCategoryId = copyList.SustainabilityCategoryId;
+                        //dailyTaskListVM.Action = dailyTask.Action;
+                        dailyTaskListVM.Co2 = copyList.Co2;
+                        dailyTaskListVM.Water = copyList.Water;
+                        dailyTaskListVM.Energy = copyList.Energy;
+                        dailyTaskListVM.Kindness = copyList.Kindness;
+
+                        List<SqlParameter> aParameters = new List<SqlParameter>();
+                        aParameters.Add(new SqlParameter("@dailyTaskListId", copyList.DailyTaskListId));
+                        SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetDailyTaskListDetails", aParameters);
+
+                        List<DailyTaskListDetailsViewModel> detailList = new List<DailyTaskListDetailsViewModel>();
+
+                        while (dr.Read())
+                        {
+                            DailyTaskListDetailsViewModel dailyTaskListDetails = new DailyTaskListDetailsViewModel();
+
+                            dailyTaskListDetails.Id = (long)dr["Id"];
+                            dailyTaskListDetails.DailyTaskListId = (long)dr["DailyTaskListId"];
+                            dailyTaskListDetails.Title = dr["Title"].ToString();
+                            dailyTaskListDetails.Note = dr["Note"].ToString();
+                            dailyTaskListDetails.TitleBangla = dr["TitleBangla"].ToString();
+                            dailyTaskListDetails.NoteBangla = dr["NoteBangla"].ToString();
+                            dailyTaskListDetails.Islink = (bool)dr["Islink"];
+
+                            detailList.Add(dailyTaskListDetails);
+                        }
+                        //dr.NextResult();
+                        //dr.Close();
+
+                        dailyTaskListVM.DailyTaskListDetailsViewModels = detailList;
+
+                    }
+                    else
+                    {
+                        // Daily New task ramdomly Save
+                        SaveDailyTaskRamdomly(dailyTask);
+
+                        var copyListNew = GetCopyDailyTaskList(type);
+
+                        accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+
+                        var dateTime = copyListNew.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
+                        dailyTaskListVM.Id = copyListNew.DailyTaskListId;
+                        dailyTaskListVM.CreateDate = dateTime.Split(' ')[0];
+                        dailyTaskListVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                        dailyTaskListVM.BanglaName = copyListNew.BanglaName.ToString();
+                        dailyTaskListVM.EnglishName = copyListNew.EnglishName.ToString();
+                        dailyTaskListVM.Type = copyListNew.Type.ToString();
+                        dailyTaskListVM.ImageName = copyListNew.ImageName.ToString();
+                        dailyTaskListVM.ImageUrl = copyListNew.ImageUrl.ToString();
+                        dailyTaskListVM.ImagePath = copyListNew.ImagePath.ToString();
+                        dailyTaskListVM.InfoLink = copyListNew.InfoLink.ToString();
+                        dailyTaskListVM.SustainabilityCategoryId = copyListNew.SustainabilityCategoryId;
+                        //dailyTaskListVM.Action = dailyTask.Action;
+                        dailyTaskListVM.Co2 = copyListNew.Co2;
+                        dailyTaskListVM.Water = copyListNew.Water;
+                        dailyTaskListVM.Energy = copyListNew.Energy;
+                        dailyTaskListVM.Kindness = copyListNew.Kindness;
+
+                        List<SqlParameter> aParameters = new List<SqlParameter>();
+                        aParameters.Add(new SqlParameter("@dailyTaskListId", copyListNew.DailyTaskListId));
+                        SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetDailyTaskListDetails", aParameters);
+
+                        List<DailyTaskListDetailsViewModel> detailList = new List<DailyTaskListDetailsViewModel>();
+                        while (dr.Read())
+                        {
+                            DailyTaskListDetailsViewModel dailyTaskListDetails = new DailyTaskListDetailsViewModel();
+
+                            dailyTaskListDetails.Id = (long)dr["Id"];
+                            dailyTaskListDetails.DailyTaskListId = (long)dr["DailyTaskListId"];
+                            dailyTaskListDetails.Title = dr["Title"].ToString();
+                            dailyTaskListDetails.Note = dr["Note"].ToString();
+                            dailyTaskListDetails.TitleBangla = dr["TitleBangla"].ToString();
+                            dailyTaskListDetails.NoteBangla = dr["NoteBangla"].ToString();
+                            dailyTaskListDetails.Islink = (bool)dr["Islink"];
+
+                            detailList.Add(dailyTaskListDetails);
+                        }
+                        //dr.NextResult();
+                        // dr.Close();
+
+                        dailyTaskListVM.DailyTaskListDetailsViewModels = detailList;
+
+
+                    }
+
+                }
+                return dailyTaskListVM;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        private void SaveDailyTaskRamdomly(DailyTaskList dailyTask)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                ResultResponse result = new ResultResponse();
+
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+
+                var date = DateTime.Now.ToString("dd-MMM-yy hh:mm tt");
+
+                aParameters.Add(new SqlParameter("@DailyTaskListId", dailyTask.Id));
+                aParameters.Add(new SqlParameter("@CreateDateTime", date.Split(' ')[0]));
+                aParameters.Add(new SqlParameter("@BanglaName", dailyTask.BanglaName));
+                aParameters.Add(new SqlParameter("@EnglishName", dailyTask.EnglishName));
+                aParameters.Add(new SqlParameter("@Type", dailyTask.Type));
+                aParameters.Add(new SqlParameter("@ImageName", dailyTask.ImageName));
+                aParameters.Add(new SqlParameter("@ImagePath", dailyTask.ImagePath));
+                aParameters.Add(new SqlParameter("@ImageUrl", dailyTask.ImageUrl));
+                aParameters.Add(new SqlParameter("@InfoLink", dailyTask.InfoLink));
+                aParameters.Add(new SqlParameter("@SustainabilityCategoryId", dailyTask.SustainabilityCategoryId));
+                aParameters.Add(new SqlParameter("@Co2", dailyTask.Co2));
+                aParameters.Add(new SqlParameter("@Water", dailyTask.Water));
+                aParameters.Add(new SqlParameter("@Energy", dailyTask.Energy));
+                aParameters.Add(new SqlParameter("@Kindness", dailyTask.Kindness));
+
+                accessManager.SaveData("sp_SaveCopyDailyTaskList", aParameters);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        public List<DailyTaskList> GetDailyTaskListByType(string type)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                List<DailyTaskList> dailyTaskList = new List<DailyTaskList>();
+
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@Type", type));
+
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetDailyTaskListByType", aParameters);
+
+                while (dr.Read())
+                {
+
+                    DailyTaskList dailyTaskListVM = new DailyTaskList();
+
+                    dailyTaskListVM.Id = (long)dr["Id"];
+                    dailyTaskListVM.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    dailyTaskListVM.BanglaName = dr["BanglaName"].ToString();
+                    dailyTaskListVM.EnglishName = dr["EnglishName"].ToString();
+                    dailyTaskListVM.Type = dr["Type"].ToString();
+                    dailyTaskListVM.ImageName = dr["ImageName"].ToString();
+                    dailyTaskListVM.ImageUrl = dr["ImageUrl"].ToString();
+                    dailyTaskListVM.ImagePath = dr["ImagePath"].ToString();
+                    dailyTaskListVM.InfoLink = dr["InfoLink"].ToString();
+
+                    //dailyTaskListVM.Action = (long)dr["Action"];
+                    dailyTaskListVM.Co2 = dr["Co2"].ToString();
+                    dailyTaskListVM.Water = dr["Water"].ToString();
+                    dailyTaskListVM.Energy = dr["Energy"].ToString();
+                    dailyTaskListVM.Kindness = dr["Kindness"].ToString();
+
+                    dailyTaskListVM.SustainabilityCategoryId = (long)dr["SustainabilityCategoryId"];
+
+
+                    dailyTaskList.Add(dailyTaskListVM);
+                }
+                return dailyTaskList;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
         #endregion
 
         #region Monthly Task
 
+        // randomly 10 lis
+        public List<MonthlyTaskList> GetMonthlyTaskListRandomly()
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                List<MonthlyTaskList> dailyTaskList = new List<MonthlyTaskList>();
+
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskListRandomly", aParameters);
+
+                while (dr.Read())
+                {
+
+                    MonthlyTaskList dailyTaskListVM = new MonthlyTaskList();
+                    //var dateTime = Convert.ToDateTime(dr["CreateDateTime"]).ToString("dd-MMM-yy hh:mm tt");
+
+                    dailyTaskListVM.Id = (long)dr["Id"];
+                    dailyTaskListVM.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    dailyTaskListVM.BanglaName = dr["BanglaName"].ToString();
+                    dailyTaskListVM.EnglishName = dr["EnglishName"].ToString();
+                    dailyTaskListVM.Type = dr["Type"].ToString();
+                    dailyTaskListVM.ImageName = dr["ImageName"].ToString();
+                    dailyTaskListVM.ImageUrl = dr["ImageUrl"].ToString();
+                    dailyTaskListVM.ImagePath = dr["ImagePath"].ToString();
+                    dailyTaskListVM.InfoLink = dr["InfoLink"].ToString();
+
+                    //dailyTaskListVM.Action = (long)dr["Action"];
+                    dailyTaskListVM.Co2 = dr["Co2"].ToString();
+                    dailyTaskListVM.Water = dr["Water"].ToString();
+                    dailyTaskListVM.Energy = dr["Energy"].ToString();
+                    dailyTaskListVM.Kindness = dr["Kindness"].ToString();
+
+                    dailyTaskListVM.SustainabilityCategoryId = (long)dr["SustainabilityCategoryId"];
+
+
+                    dailyTaskList.Add(dailyTaskListVM);
+                }
+                return dailyTaskList;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        public List<CopyMonthlyTaskList> GetCopyMonthlyTaskListRandomly()
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                List<CopyMonthlyTaskList> copyMonthlyTaskLists = new List<CopyMonthlyTaskList>();
+
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                //aParameters.Add(new SqlParameter("@dailyTaskId", id));
+
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetCopyMonthlyTaskList", aParameters);
+
+
+                while (dr.Read())
+                {
+                    CopyMonthlyTaskList copyMonthlyTaskList = new CopyMonthlyTaskList();
+
+                    //var dateTime = Convert.ToDateTime(dr["CreateDateTime"]).ToString("dd-MMM-yy hh:mm tt");
+
+
+                    //var dateTime = Convert.ToDateTime(dr["CreateDateTime"]).ToString("dd-MMM-yy hh:mm tt");
+
+                    copyMonthlyTaskList.Id = (long)dr["Id"];
+                    copyMonthlyTaskList.MonthlyTaskListId = (long)dr["MonthlyTaskListId"];
+                    copyMonthlyTaskList.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    copyMonthlyTaskList.BanglaName = dr["BanglaName"].ToString();
+                    copyMonthlyTaskList.EnglishName = dr["EnglishName"].ToString();
+                    copyMonthlyTaskList.Type = dr["Type"].ToString();
+                    copyMonthlyTaskList.ImageName = dr["ImageName"].ToString();
+                    copyMonthlyTaskList.ImageUrl = dr["ImageUrl"].ToString();
+                    copyMonthlyTaskList.ImagePath = dr["ImagePath"].ToString();
+                    copyMonthlyTaskList.InfoLink = dr["InfoLink"].ToString();
+
+                    //dailyTaskListVM.Action = (long)dr["Action"];
+                    copyMonthlyTaskList.Co2 = dr["Co2"].ToString();
+                    copyMonthlyTaskList.Water = dr["Water"].ToString();
+                    copyMonthlyTaskList.Energy = dr["Energy"].ToString();
+                    copyMonthlyTaskList.Kindness = dr["Kindness"].ToString();
+
+                    copyMonthlyTaskList.SustainabilityCategoryId = (long)dr["SustainabilityCategoryId"];
+
+
+                    copyMonthlyTaskLists.Add(copyMonthlyTaskList);
+                }
+                return copyMonthlyTaskLists;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        public List<MonthlyTaskListViewModel> GetMonthlyTaskListAndDetailsRandomly(string userId)
+        {
+            try
+            {
+                var list = GetMonthlyTaskListRandomly();
+
+                var copyList = GetCopyMonthlyTaskListRandomly();
+
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                List<MonthlyTaskListViewModel> monthlyTaskList = new List<MonthlyTaskListViewModel>();
+                List<MonthlyTaskListViewModel> monthlyTaskListVMs = new List<MonthlyTaskListViewModel>();
+
+
+
+                //if (copyList.Id > 0)
+                if (copyList.Count > 0)
+                {
+                    foreach (var item in copyList)
+                    {
+                        var DisableStatus = GetTaskdisableorNot(item.MonthlyTaskListId, userId);
+
+                        accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                        MonthlyTaskListViewModel monthlyTaskListVM = new MonthlyTaskListViewModel();
+
+                        var dateTime = item.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
+
+                        monthlyTaskListVM.Id = item.MonthlyTaskListId;
+                        monthlyTaskListVM.CreateDate = dateTime.Split(' ')[0];
+                        monthlyTaskListVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                        monthlyTaskListVM.BanglaName = item.BanglaName.ToString();
+                        monthlyTaskListVM.EnglishName = item.EnglishName.ToString();
+                        monthlyTaskListVM.Type = item.Type.ToString();
+                        monthlyTaskListVM.ImageName = item.ImageName.ToString();
+                        monthlyTaskListVM.ImageUrl = item.ImageUrl.ToString();
+                        monthlyTaskListVM.ImagePath = item.ImagePath.ToString();
+                        monthlyTaskListVM.InfoLink = item.InfoLink.ToString();
+                        monthlyTaskListVM.SustainabilityCategoryId = item.SustainabilityCategoryId;
+                        //monthlyTaskListVM.Action = monthlyTask.Action;
+                        monthlyTaskListVM.Co2 = item.Co2;
+                        monthlyTaskListVM.Water = item.Water;
+                        monthlyTaskListVM.Energy = item.Energy;
+                        monthlyTaskListVM.Kindness = item.Kindness;
+
+                        monthlyTaskListVM.DisableStatus = DisableStatus;
+
+                        List<SqlParameter> aParameters = new List<SqlParameter>();
+                        aParameters.Add(new SqlParameter("@monthlyTaskListId", item.MonthlyTaskListId));
+                        SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskListDetails", aParameters);
+
+                        List<MonthlyTaskListDetailsViewModel> detailList = new List<MonthlyTaskListDetailsViewModel>();
+
+                        while (dr.Read())
+                        {
+                            MonthlyTaskListDetailsViewModel monthlyTaskListDetails = new MonthlyTaskListDetailsViewModel();
+
+
+                            monthlyTaskListDetails.Id = (long)dr["Id"];
+                            monthlyTaskListDetails.MonthlyTaskListId = (long)dr["MonthlyTaskListId"];
+                            monthlyTaskListDetails.Title = dr["Title"].ToString();
+                            monthlyTaskListDetails.Note = dr["Note"].ToString();
+                            monthlyTaskListDetails.TitleBangla = dr["TitleBangla"].ToString();
+                            monthlyTaskListDetails.NoteBangla = dr["NoteBangla"].ToString();
+                            monthlyTaskListDetails.Islink = (bool)dr["Islink"];
+
+                            detailList.Add(monthlyTaskListDetails);
+                        }
+                        //dr.NextResult();
+                        dr.Close();
+
+                        monthlyTaskListVM.MonthlyTaskListDetailsViewModels = detailList;
+
+                        monthlyTaskListVMs.Add(monthlyTaskListVM);
+                    }
+
+                }
+                else
+                {
+                    foreach (var monthlyTask in list)
+                    {
+                        ResultResponse result = new ResultResponse();
+                        accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                        List<SqlParameter> aParameters2 = new List<SqlParameter>();
+
+                        var date = DateTime.Now.ToString("dd-MMM-yy hh:mm tt");
+
+                        aParameters2.Add(new SqlParameter("@MonthlyTaskListId", monthlyTask.Id));
+                        aParameters2.Add(new SqlParameter("@CreateDateTime", date.Split(' ')[0]));
+                        aParameters2.Add(new SqlParameter("@BanglaName", monthlyTask.BanglaName));
+                        aParameters2.Add(new SqlParameter("@EnglishName", monthlyTask.EnglishName));
+                        aParameters2.Add(new SqlParameter("@Type", monthlyTask.Type));
+                        aParameters2.Add(new SqlParameter("@ImageName", monthlyTask.ImageName));
+                        aParameters2.Add(new SqlParameter("@ImagePath", monthlyTask.ImagePath));
+                        aParameters2.Add(new SqlParameter("@ImageUrl", monthlyTask.ImageUrl));
+                        aParameters2.Add(new SqlParameter("@InfoLink", monthlyTask.InfoLink));
+                        aParameters2.Add(new SqlParameter("@SustainabilityCategoryId", monthlyTask.SustainabilityCategoryId));
+
+                        aParameters2.Add(new SqlParameter("@Co2", monthlyTask.Co2));
+                        aParameters2.Add(new SqlParameter("@Water", monthlyTask.Water));
+                        aParameters2.Add(new SqlParameter("@Energy", monthlyTask.Energy));
+                        aParameters2.Add(new SqlParameter("@Kindness", monthlyTask.Kindness));
+
+                        accessManager.SaveData("sp_SaveCopyMonthlyTaskList", aParameters2);
+
+                        accessManager.SqlConnectionClose();
+                    }
+
+                    var copyListNew = GetCopyMonthlyTaskListRandomly();
+                    accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                    foreach (var item in copyListNew)
+                    {
+                        var DisableStatus = GetTaskdisableorNot(item.MonthlyTaskListId, userId);
+
+                        accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                        MonthlyTaskListViewModel monthlyTaskListVM = new MonthlyTaskListViewModel();
+
+                        var dateTime = item.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
+
+                        monthlyTaskListVM.Id = item.MonthlyTaskListId;
+                        monthlyTaskListVM.CreateDate = dateTime.Split(' ')[0];
+                        monthlyTaskListVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                        monthlyTaskListVM.BanglaName = item.BanglaName.ToString();
+                        monthlyTaskListVM.EnglishName = item.EnglishName.ToString();
+                        monthlyTaskListVM.Type = item.Type.ToString();
+                        monthlyTaskListVM.ImageName = item.ImageName.ToString();
+                        monthlyTaskListVM.ImageUrl = item.ImageUrl.ToString();
+                        monthlyTaskListVM.ImagePath = item.ImagePath.ToString();
+                        monthlyTaskListVM.InfoLink = item.InfoLink.ToString();
+                        monthlyTaskListVM.SustainabilityCategoryId = item.SustainabilityCategoryId;
+                        //dailyTaskListVM.Action = dailyTask.Action;
+                        monthlyTaskListVM.Co2 = item.Co2;
+                        monthlyTaskListVM.Water = item.Water;
+                        monthlyTaskListVM.Energy = item.Energy;
+                        monthlyTaskListVM.Kindness = item.Kindness;
+
+                        monthlyTaskListVM.DisableStatus = DisableStatus;
+
+                        List<SqlParameter> aParameters = new List<SqlParameter>();
+                        aParameters.Add(new SqlParameter("@monthlyTaskListId", item.MonthlyTaskListId));
+                        SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskListDetails", aParameters);
+
+                        List<MonthlyTaskListDetailsViewModel> detailList = new List<MonthlyTaskListDetailsViewModel>();
+
+                        while (dr.Read())
+                        {
+                            MonthlyTaskListDetailsViewModel dailyTaskListDetails = new MonthlyTaskListDetailsViewModel();
+
+
+                            dailyTaskListDetails.Id = (long)dr["Id"];
+                            dailyTaskListDetails.MonthlyTaskListId = (long)dr["MonthlyTaskListId"];
+                            dailyTaskListDetails.Title = dr["Title"].ToString();
+                            dailyTaskListDetails.Note = dr["Note"].ToString();
+                            dailyTaskListDetails.TitleBangla = dr["TitleBangla"].ToString();
+                            dailyTaskListDetails.NoteBangla = dr["NoteBangla"].ToString();
+                            dailyTaskListDetails.Islink = (bool)dr["Islink"];
+
+                            detailList.Add(dailyTaskListDetails);
+                        }
+                        //dr.NextResult();
+                        dr.Close();
+
+                        monthlyTaskListVM.MonthlyTaskListDetailsViewModels = detailList;
+
+                        monthlyTaskListVMs.Add(monthlyTaskListVM);
+                    }
+
+
+                }
+
+                return monthlyTaskListVMs;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+
+        //new solve methode
+
+        public List<MonthlyTaskListViewModel> GetMonthlyTaskListAndDetailsRandomlyNew(string userId)
+        {
+            try
+            {
+                var list = GetMonthlyTaskListRandomly();
+                var copyList = GetCopyMonthlyTaskListRandomly();
+
+                List<MonthlyTaskListViewModel> monthlyTaskList = new List<MonthlyTaskListViewModel>();
+                List<MonthlyTaskListViewModel> monthlyTaskListVMs = new List<MonthlyTaskListViewModel>();
+
+                if (copyList.Count > 0)
+                {
+                    foreach (var item in copyList)
+                    {
+                        var DisableStatus = GetTaskdisableorNot(item.MonthlyTaskListId, userId);
+
+                        accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                        MonthlyTaskListViewModel monthlyTaskListVM = new MonthlyTaskListViewModel();
+
+                        var dateTime = item.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
+
+                        monthlyTaskListVM.Id = item.MonthlyTaskListId;
+                        monthlyTaskListVM.CreateDate = dateTime.Split(' ')[0];
+                        monthlyTaskListVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                        monthlyTaskListVM.BanglaName = item.BanglaName.ToString();
+                        monthlyTaskListVM.EnglishName = item.EnglishName.ToString();
+                        monthlyTaskListVM.Type = item.Type.ToString();
+                        monthlyTaskListVM.ImageName = item.ImageName.ToString();
+                        monthlyTaskListVM.ImageUrl = item.ImageUrl.ToString();
+                        monthlyTaskListVM.ImagePath = item.ImagePath.ToString();
+                        monthlyTaskListVM.InfoLink = item.InfoLink.ToString();
+                        monthlyTaskListVM.SustainabilityCategoryId = item.SustainabilityCategoryId;
+                        //monthlyTaskListVM.Action = monthlyTask.Action;
+                        monthlyTaskListVM.Co2 = item.Co2;
+                        monthlyTaskListVM.Water = item.Water;
+                        monthlyTaskListVM.Energy = item.Energy;
+                        monthlyTaskListVM.Kindness = item.Kindness;
+
+                        monthlyTaskListVM.DisableStatus = DisableStatus;
+
+                        List<SqlParameter> aParameters = new List<SqlParameter>();
+                        aParameters.Add(new SqlParameter("@monthlyTaskListId", item.MonthlyTaskListId));
+                        SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskListDetails", aParameters);
+
+                        List<MonthlyTaskListDetailsViewModel> detailList = new List<MonthlyTaskListDetailsViewModel>();
+
+                        while (dr.Read())
+                        {
+                            MonthlyTaskListDetailsViewModel monthlyTaskListDetails = new MonthlyTaskListDetailsViewModel();
+
+
+                            monthlyTaskListDetails.Id = (long)dr["Id"];
+                            monthlyTaskListDetails.MonthlyTaskListId = (long)dr["MonthlyTaskListId"];
+                            monthlyTaskListDetails.Title = dr["Title"].ToString();
+                            monthlyTaskListDetails.Note = dr["Note"].ToString();
+                            monthlyTaskListDetails.TitleBangla = dr["TitleBangla"].ToString();
+                            monthlyTaskListDetails.NoteBangla = dr["NoteBangla"].ToString();
+                            monthlyTaskListDetails.Islink = (bool)dr["Islink"];
+
+                            detailList.Add(monthlyTaskListDetails);
+                        }
+                        //dr.NextResult();
+                        //dr.Close();
+
+                        monthlyTaskListVM.MonthlyTaskListDetailsViewModels = detailList;
+
+                        monthlyTaskListVMs.Add(monthlyTaskListVM);
+
+                        // 
+                        accessManager.SqlConnectionClose();
+                    }
+
+                }
+                else
+                {
+
+                    //save method for monthly 10 data save
+                    foreach (var monthlyTask in list)
+                    {
+                        SaveMonthlyTaskListNew(monthlyTask);
+                    }
+
+
+                    var copyListNew = GetCopyMonthlyTaskListRandomly();
+                    //accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                    foreach (var item in copyListNew)
+                    {
+                        var DisableStatus = GetTaskdisableorNot(item.MonthlyTaskListId, userId);
+
+                        accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                        MonthlyTaskListViewModel monthlyTaskListVM = new MonthlyTaskListViewModel();
+
+                        var dateTime = item.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
+
+                        monthlyTaskListVM.Id = item.MonthlyTaskListId;
+                        monthlyTaskListVM.CreateDate = dateTime.Split(' ')[0];
+                        monthlyTaskListVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                        monthlyTaskListVM.BanglaName = item.BanglaName.ToString();
+                        monthlyTaskListVM.EnglishName = item.EnglishName.ToString();
+                        monthlyTaskListVM.Type = item.Type.ToString();
+                        monthlyTaskListVM.ImageName = item.ImageName.ToString();
+                        monthlyTaskListVM.ImageUrl = item.ImageUrl.ToString();
+                        monthlyTaskListVM.ImagePath = item.ImagePath.ToString();
+                        monthlyTaskListVM.InfoLink = item.InfoLink.ToString();
+                        monthlyTaskListVM.SustainabilityCategoryId = item.SustainabilityCategoryId;
+                        //dailyTaskListVM.Action = dailyTask.Action;
+                        monthlyTaskListVM.Co2 = item.Co2;
+                        monthlyTaskListVM.Water = item.Water;
+                        monthlyTaskListVM.Energy = item.Energy;
+                        monthlyTaskListVM.Kindness = item.Kindness;
+
+                        monthlyTaskListVM.DisableStatus = DisableStatus;
+
+                        List<SqlParameter> aParameters = new List<SqlParameter>();
+                        aParameters.Add(new SqlParameter("@monthlyTaskListId", item.MonthlyTaskListId));
+                        SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskListDetails", aParameters);
+
+                        List<MonthlyTaskListDetailsViewModel> detailList = new List<MonthlyTaskListDetailsViewModel>();
+
+                        while (dr.Read())
+                        {
+                            MonthlyTaskListDetailsViewModel dailyTaskListDetails = new MonthlyTaskListDetailsViewModel();
+
+
+                            dailyTaskListDetails.Id = (long)dr["Id"];
+                            dailyTaskListDetails.MonthlyTaskListId = (long)dr["MonthlyTaskListId"];
+                            dailyTaskListDetails.Title = dr["Title"].ToString();
+                            dailyTaskListDetails.Note = dr["Note"].ToString();
+                            dailyTaskListDetails.TitleBangla = dr["TitleBangla"].ToString();
+                            dailyTaskListDetails.NoteBangla = dr["NoteBangla"].ToString();
+                            dailyTaskListDetails.Islink = (bool)dr["Islink"];
+
+                            detailList.Add(dailyTaskListDetails);
+                        }
+                        //dr.NextResult();
+                        //dr.Close();
+
+                        monthlyTaskListVM.MonthlyTaskListDetailsViewModels = detailList;
+
+                        monthlyTaskListVMs.Add(monthlyTaskListVM);
+
+                        accessManager.SqlConnectionClose();
+                    }
+
+
+                }
+
+                return monthlyTaskListVMs;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        private void SaveMonthlyTaskListNew(MonthlyTaskList monthlyTask)
+        {
+            try
+            {
+                ResultResponse result = new ResultResponse();
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+
+                var date = DateTime.Now.ToString("dd-MMM-yy hh:mm tt");
+
+                aParameters.Add(new SqlParameter("@MonthlyTaskListId", monthlyTask.Id));
+                aParameters.Add(new SqlParameter("@CreateDateTime", date.Split(' ')[0]));
+                aParameters.Add(new SqlParameter("@BanglaName", monthlyTask.BanglaName));
+                aParameters.Add(new SqlParameter("@EnglishName", monthlyTask.EnglishName));
+                aParameters.Add(new SqlParameter("@Type", monthlyTask.Type));
+                aParameters.Add(new SqlParameter("@ImageName", monthlyTask.ImageName));
+                aParameters.Add(new SqlParameter("@ImagePath", monthlyTask.ImagePath));
+                aParameters.Add(new SqlParameter("@ImageUrl", monthlyTask.ImageUrl));
+                aParameters.Add(new SqlParameter("@InfoLink", monthlyTask.InfoLink));
+                aParameters.Add(new SqlParameter("@SustainabilityCategoryId", monthlyTask.SustainabilityCategoryId));
+
+                aParameters.Add(new SqlParameter("@Co2", monthlyTask.Co2));
+                aParameters.Add(new SqlParameter("@Water", monthlyTask.Water));
+                aParameters.Add(new SqlParameter("@Energy", monthlyTask.Energy));
+                aParameters.Add(new SqlParameter("@Kindness", monthlyTask.Kindness));
+
+                accessManager.SaveData("sp_SaveCopyMonthlyTaskList", aParameters);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+       
+
+        // end
+
+        public MonthlyTaskList GetMonthlyTaskListById(long taskId)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@TaskId", taskId));
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskListById", aParameters);
+
+                MonthlyTaskList dailyTaskListVM = new MonthlyTaskList();
+                while (dr.Read())
+                {
+                    dailyTaskListVM.Id = (long)dr["Id"];
+                    dailyTaskListVM.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    dailyTaskListVM.BanglaName = dr["BanglaName"].ToString();
+                    dailyTaskListVM.EnglishName = dr["EnglishName"].ToString();
+                    dailyTaskListVM.Type = dr["Type"].ToString();
+                    dailyTaskListVM.ImageName = dr["ImageName"].ToString();
+                    dailyTaskListVM.ImageUrl = dr["ImageUrl"].ToString();
+                    dailyTaskListVM.ImagePath = dr["ImagePath"].ToString();
+                    dailyTaskListVM.InfoLink = dr["InfoLink"].ToString();
+                    dailyTaskListVM.Co2 = dr["Co2"].ToString();
+                    dailyTaskListVM.Water = dr["Water"].ToString();
+                    dailyTaskListVM.Energy = dr["Energy"].ToString();
+                    dailyTaskListVM.Kindness = dr["Kindness"].ToString();
+
+                    dailyTaskListVM.SustainabilityCategoryId = (long)dr["SustainabilityCategoryId"];
+                }
+                return dailyTaskListVM;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
         public CopyMonthlyTaskList GetCopyMonthlyTaskList()
         {
             try
@@ -1605,6 +2449,221 @@ namespace QMSWebAPI.DAL
                 accessManager.SqlConnectionClose();
             }
         }
+
+        public List<MonthlyTask> GetMonthlyTaskByDateCount(string userId)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@UserId", userId));
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskByMonth", aParameters);
+
+                List<MonthlyTask> tasks = new List<MonthlyTask>();
+                //MonthlyTask task = new MonthlyTask();
+                while (dr.Read())
+                {
+                    MonthlyTask task = new MonthlyTask();
+
+                    task.Id = (long)dr["Id"];
+                    task.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    task.Score = (long)dr["Score"];
+                    task.Action = (long)dr["Action"];
+                    task.Type = dr["Type"].ToString();
+                    //task.LevelUp = (int)dr["LevelUp"];
+                    task.Status = (bool?)dr["Status"];
+                    task.BusinessUnitId = (long)dr["BusinessUnitId"];
+
+                    tasks.Add(task);
+                }
+                return tasks;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        public MonthlyTask GetMonthlyTaskByByIdandUserDate(long monthlyTaskId, string userId)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@MonthlyTaskId", monthlyTaskId));
+                aParameters.Add(new SqlParameter("@UserId", userId));
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTaskByIdandUser", aParameters);
+
+                MonthlyTask task = new MonthlyTask();
+                while (dr.Read())
+                {
+
+                    task.Id = (long)dr["Id"];
+                    task.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    task.Score = (long)dr["Score"];
+                    task.Action = (long)dr["Action"];
+                    task.Type = dr["Type"].ToString();
+                    //task.LevelUp = (int)dr["LevelUp"];
+                    task.Status = (bool?)dr["Status"];
+                    task.BusinessUnitId = (long)dr["BusinessUnitId"];
+                }
+                return task;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        public bool GetTaskdisableorNot(long MonthlyTaskId, string userId)
+        {
+            try
+            {
+                var taskId = GetMonthlyTaskByByIdandUserDate(MonthlyTaskId, userId);
+                if (taskId.Id > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public ResultResponse SaveMonthlyTaskNew(MonthlyTask monthlyTask)
+        {
+            try
+            {
+                //var task = GetMonthlyTaskByDate(monthlyTask.UserId);
+                var list = GetMonthlyTaskByDateCount(monthlyTask.UserId);
+                var taskId = GetMonthlyTaskByByIdandUserDate(monthlyTask.MonthlyTaskListId, monthlyTask.UserId);
+
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                ResultResponse result = new ResultResponse();
+
+                //DataValidation(sustainabilitySurvey);
+
+
+                //if (task.Id > 0)
+                if (list.Count <= 9)
+                {
+                    if (taskId.Id > 0)
+                    {
+                        result.msg = "You Have Already Completed This Task";
+                        return result;
+                    }
+
+                    monthlyTask.Score = 0;
+                    if (list.Count() == 6)
+                    {
+                        monthlyTask.Score = 100;
+                    }
+                    //else if (list.Count() == 7)
+                    //{
+                    //    monthlyTask.Score = 105;
+                    //}
+                    //else if (list.Count() == 8)
+                    //{
+                    //    monthlyTask.Score = 110;
+                    //}
+                    else if (list.Count() == 9)
+                    {
+                        monthlyTask.Score = 150;
+                    }
+
+                    var monthklyTaskId = GetMonthlyTaskListById(monthlyTask.MonthlyTaskListId);
+
+                    if (monthklyTaskId.Water == "")
+                    {
+                        monthlyTask.Water = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Water = decimal.Parse(monthklyTaskId.Water);
+                    }
+                    if (monthklyTaskId.Energy == "")
+                    {
+                        monthlyTask.Energy = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Energy = decimal.Parse(monthklyTaskId.Energy);
+                    }
+                    if (monthklyTaskId.Co2 == "")
+                    {
+                        monthlyTask.Co2 = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Co2 = decimal.Parse(monthklyTaskId.Co2);
+                    }
+                    if (monthklyTaskId.Kindness == "")
+                    {
+                        monthlyTask.Kindness = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Kindness = decimal.Parse(monthklyTaskId.Kindness);
+                    }
+
+                    accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                    bool status = true;
+                    List<SqlParameter> aParameters = new List<SqlParameter>();
+
+                    aParameters.Add(new SqlParameter("@CreateDateTime", DateTime.Now));
+                    aParameters.Add(new SqlParameter("@MonthlyTaskListId", monthlyTask.MonthlyTaskListId));
+                    aParameters.Add(new SqlParameter("@Score", monthlyTask.Score));
+                    aParameters.Add(new SqlParameter("@UserId", monthlyTask.UserId));
+                    aParameters.Add(new SqlParameter("@BusinessUnitId", monthlyTask.BusinessUnitId));
+                    aParameters.Add(new SqlParameter("@Status", status));
+                    aParameters.Add(new SqlParameter("@Type", monthlyTask.Type));
+                    aParameters.Add(new SqlParameter("@Action", monthlyTask.Action));
+                    //aParameters.Add(new SqlParameter("@LevelUp", monthlyTask.LevelUp));
+                    aParameters.Add(new SqlParameter("@Co2", monthlyTask.Co2));
+                    aParameters.Add(new SqlParameter("@Water", monthlyTask.Water));
+                    aParameters.Add(new SqlParameter("@Energy", monthlyTask.Energy));
+                    aParameters.Add(new SqlParameter("@Kindness", monthlyTask.Kindness));
+
+                    result.isSuccess = accessManager.SaveData("sp_SaveMonthlyTask", aParameters);
+
+                    result.msg = "Monthly Task Added Successfully";
+                    return result;
+
+
+                }
+                else
+                {
+                    result.msg = "You Have Completed Your Monthly Task.";
+                    return result;
+                }
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+
+        }
         public ResultResponse SaveMonthlyTask(MonthlyTask monthlyTask)
         {
             try
@@ -1625,6 +2684,45 @@ namespace QMSWebAPI.DAL
                 }
                 else
                 {
+                    var monthklyTaskId = GetMonthlyTaskListById(monthlyTask.MonthlyTaskListId);
+
+                    if (monthklyTaskId.Water == "")
+                    {
+                        monthlyTask.Water = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Water = decimal.Parse(monthklyTaskId.Water);
+                    }
+                    if (monthklyTaskId.Energy == "")
+                    {
+                        monthlyTask.Energy = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Energy = decimal.Parse(monthklyTaskId.Energy);
+                    }
+                    if (monthklyTaskId.Co2 == "")
+                    {
+                        monthlyTask.Co2 = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Co2 = decimal.Parse(monthklyTaskId.Co2);
+                    }
+                    if (monthklyTaskId.Kindness == "")
+                    {
+                        monthlyTask.Kindness = 0;
+                    }
+                    else
+                    {
+
+                        monthlyTask.Kindness = decimal.Parse(monthklyTaskId.Kindness);
+                    }
+
                     accessManager.SqlConnectionOpen(DataBase.KinshipDB);
                     bool status = true;
                     List<SqlParameter> aParameters = new List<SqlParameter>();
@@ -1638,6 +2736,10 @@ namespace QMSWebAPI.DAL
                     aParameters.Add(new SqlParameter("@Type", monthlyTask.Type));
                     aParameters.Add(new SqlParameter("@Action", monthlyTask.Action));
                     //aParameters.Add(new SqlParameter("@LevelUp", monthlyTask.LevelUp));
+                    aParameters.Add(new SqlParameter("@Co2", monthlyTask.Co2));
+                    aParameters.Add(new SqlParameter("@Water", monthlyTask.Water));
+                    aParameters.Add(new SqlParameter("@Energy", monthlyTask.Energy));
+                    aParameters.Add(new SqlParameter("@Kindness", monthlyTask.Kindness));
 
                     result.isSuccess = accessManager.SaveData("sp_SaveMonthlyTask", aParameters);
 
@@ -1823,16 +2925,23 @@ namespace QMSWebAPI.DAL
                     {
                         throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
                     }
+
                     //read the file
                     HttpPostedFile postedFile = HttpContext.Current.Request.Files[0];
                     string filename = Path.GetFileName(postedFile.FileName);
 
-                    //string filePath = @"D:\Rabby\Kingship\SustainabilityImages\" + filename; //local
-                    string filePath = @"D:\PUBLISH PROJECTS\EnergyApi\SustainabilityImages\" + filename;
+                    string filePath = "";
+                    string urlPath = "";
+                    if (filename != "")
+                    {
+                        //filePath = @"D:\Rabby\Kingship\SustainabilityImages\" + filename; //local
+                        //string filePath = @"D:\PUBLISH PROJECTS\EnergyApi\SustainabilityImages\" + filename;
+                        filePath = @"D:\PUBLISH PROJECTS\EnergyApi\SustainabilityImages\" + filename;
 
-                    string urlPath = @"/SustainabilityImages/" + filename;
+                        urlPath = @"/SustainabilityImages/" + filename;
+                        postedFile.SaveAs(filePath);
+                    }
 
-                    postedFile.SaveAs(filePath);
                     var count = list.Count();
                     if (list.Count() == 1)
                     {
@@ -2233,6 +3342,60 @@ namespace QMSWebAPI.DAL
 
         #region Monthly Tips
 
+        public bool GetTipsTaskdisableorNot(long monthlyTipsId, string userId)
+        {
+            try
+            {
+                var taskId = GetMonthlyTipsByIdandUser(monthlyTipsId, userId);
+                if (taskId.Id > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public MonthlyTips GetMonthlyTipsByIdandUser(long monthlyTipsId, string userId)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@MonthlyTipsTaskId", monthlyTipsId));
+                aParameters.Add(new SqlParameter("@UserId", userId));
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTipsByIdandUser", aParameters);
+
+                MonthlyTips task = new MonthlyTips();
+                while (dr.Read())
+                {
+
+                    task.Id = (long)dr["Id"];
+                    task.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    task.Score = (long)dr["Score"];
+                    task.Action = (long)dr["Action"];
+                    task.Type = dr["Type"].ToString();
+                    //task.LevelUp = (int)dr["LevelUp"];
+                    task.Status = (bool?)dr["Status"];
+                    task.BusinessUnitId = (long)dr["BusinessUnitId"];
+                }
+                return task;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
         public List<MonthlyTipsTask> GetMonthlyTipsTaskList()
         {
             try
@@ -2256,6 +3419,55 @@ namespace QMSWebAPI.DAL
                     monthlyTipsTask.OriginalLink = dr["OriginalLink"].ToString();
                     monthlyTipsTask.LinkCode = dr["LinkCode"].ToString();
                     monthlyTipsTask.Type = dr["Type"].ToString();
+
+                    monthlyTipsTaskList.Add(monthlyTipsTask);
+                }
+                return monthlyTipsTaskList;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+            finally
+            {
+                accessManager.SqlConnectionClose();
+            }
+        }
+
+        public List<MonthlyTipsTaskViewModel> GetMonthlyTipsTaskListByType(string type, string userId)
+        {
+            try
+            {
+                accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+                List<MonthlyTipsTaskViewModel> monthlyTipsTaskList = new List<MonthlyTipsTaskViewModel>();
+
+                List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@Type", type));
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTipsTaskByType", aParameters);
+
+                while (dr.Read())
+                {
+                    var DisableStatus = false;
+                    var taskId = GetMonthlyTipsByIdandUser((long)dr["Id"], userId);
+                    if (taskId.Score == 20)
+                    {
+                        DisableStatus = true; //GetTipsTaskdisableorNot((long)dr["Id"], userId);
+                    }
+                    //var DisableStatus = GetTipsTaskdisableorNot((long)dr["Id"], userId);
+
+                    MonthlyTipsTaskViewModel monthlyTipsTask = new MonthlyTipsTaskViewModel();
+                    var dateTime = Convert.ToDateTime(dr["CreateDateTime"]).ToString("dd-MMM-yy hh:mm tt");
+
+                    monthlyTipsTask.Id = (long)dr["Id"];
+                    //monthlyTipsTask.CreateDateTime = (DateTime?)dr["CreateDateTime"];
+                    monthlyTipsTask.CreateDate = dateTime.Split(' ')[0];
+                    monthlyTipsTask.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                    monthlyTipsTask.OriginalLink = dr["OriginalLink"].ToString();
+                    monthlyTipsTask.LinkCode = dr["LinkCode"].ToString();
+                    monthlyTipsTask.Type = dr["Type"].ToString();
+
+                    monthlyTipsTask.DisableStatus = DisableStatus;
 
                     monthlyTipsTaskList.Add(monthlyTipsTask);
                 }
@@ -2393,28 +3605,27 @@ namespace QMSWebAPI.DAL
 
                 accessManager.SqlConnectionOpen(DataBase.KinshipDB);
                 List<MonthlyTipsTaskViewModel> MonthlyTaskList = new List<MonthlyTipsTaskViewModel>();
-                
 
-                foreach (var monthlyTask in list)
+                // save 
+                //var copyList = GetCopyMonthlyTaskList(MonthlyTask.Id);
+                MonthlyTipsTaskViewModel monthlyTipsTaskVM = new MonthlyTipsTaskViewModel();
+
+                if (copyList.Id > 0)
                 {
-                    // save 
-                    //var copyList = GetCopyMonthlyTaskList(MonthlyTask.Id);
-                    MonthlyTipsTaskViewModel monthlyTipsTaskVM = new MonthlyTipsTaskViewModel();
+                    var dateTime = copyList.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
 
-                    if (copyList.Id > 0)
-                    {
-                        var dateTime = copyList.CreateDateTime?.ToString("dd-MMM-yy hh:mm tt");
+                    monthlyTipsTaskVM.Id = copyList.MonthlyTipsTaskId;
+                    monthlyTipsTaskVM.CreateDate = dateTime.Split(' ')[0];
+                    monthlyTipsTaskVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
+                    monthlyTipsTaskVM.OriginalLink = copyList.OriginalLink.ToString();
+                    monthlyTipsTaskVM.LinkCode = copyList.LinkCode.ToString();
+                    monthlyTipsTaskVM.Type = copyList.Type.ToString();
 
-                        monthlyTipsTaskVM.Id = copyList.MonthlyTipsTaskId;
-                        monthlyTipsTaskVM.CreateDate = dateTime.Split(' ')[0];
-                        monthlyTipsTaskVM.CreateTime = dateTime.Split(' ')[1] + dateTime.Split(' ')[2];
-                        monthlyTipsTaskVM.OriginalLink = copyList.OriginalLink.ToString();
-                        monthlyTipsTaskVM.LinkCode = copyList.LinkCode.ToString();
-                        monthlyTipsTaskVM.Type = copyList.Type.ToString();
-
-                        MonthlyTaskList.Add(monthlyTipsTaskVM);
-                    }
-                    else
+                    MonthlyTaskList.Add(monthlyTipsTaskVM);
+                }
+                else
+                {
+                    foreach (var monthlyTask in list)
                     {
                         //accessManager.SqlConnectionOpen(DataBase.KinshipDB);
                         List<SqlParameter> aParameters2 = new List<SqlParameter>();
@@ -2444,10 +3655,10 @@ namespace QMSWebAPI.DAL
                         monthlyTipsTaskVM.Type = copyListNew.Type.ToString();
 
                         MonthlyTaskList.Add(monthlyTipsTaskVM);
-
                     }
 
                 }
+
                 return MonthlyTaskList;
             }
             catch (Exception exception)
@@ -2494,14 +3705,16 @@ namespace QMSWebAPI.DAL
             }
         }
 
-        public List<MonthlyTips> GetMonthlyTipsCount(string userId)
+        public List<MonthlyTips> GetMonthlyTipsCount(long monthlyTipsId, string userId)
         {
             try
             {
                 accessManager.SqlConnectionOpen(DataBase.KinshipDB);
                 List<SqlParameter> aParameters = new List<SqlParameter>();
+                aParameters.Add(new SqlParameter("@MonthlyTipsTaskId", monthlyTipsId));
                 aParameters.Add(new SqlParameter("@UserId", userId));
-                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTipsByMonth", aParameters);
+                //SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTipsByMonth", aParameters);
+                SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetMonthlyTipsByIdandUser", aParameters);
 
                 List<MonthlyTips> taskList = new List<MonthlyTips>();
 
@@ -2536,7 +3749,7 @@ namespace QMSWebAPI.DAL
         {
             try
             {
-                var list = GetMonthlyTipsCount(monthlyTips.UserId);
+                var list = GetMonthlyTipsCount(monthlyTips.MonthlyTipsTaskId, monthlyTips.UserId);
 
                 accessManager.SqlConnectionOpen(DataBase.KinshipDB);
                 ResultResponse result = new ResultResponse();
@@ -2666,6 +3879,32 @@ namespace QMSWebAPI.DAL
             return resultOfTaskVMs;
         }
 
+        public ResultOfTaskViewModel GetDailyAndMonthlyTaskSumByUser(string userId)
+        {
+            accessManager.SqlConnectionOpen(DataBase.KinshipDB);
+
+            List<SqlParameter> aParameters = new List<SqlParameter>();
+            aParameters.Add(new SqlParameter("@UserId", userId));
+            SqlDataReader dr = accessManager.GetSqlDataReader("sp_GetDailyAndMonthlyTaskSumByUser", aParameters);
+
+            List<ResultOfTaskViewModel> resultOfTaskVMs = new List<ResultOfTaskViewModel>();
+            ResultOfTaskViewModel resultOfTaskVM = new ResultOfTaskViewModel();
+            while (dr.Read())
+            {
+
+                //resultOfTaskVM.UserId = dr["UserId"].ToString();
+
+                resultOfTaskVM.Co2 = (decimal)dr["Co2"];
+                resultOfTaskVM.Water = (decimal)dr["Water"];
+                resultOfTaskVM.Energy = (decimal)dr["Energy"];
+                resultOfTaskVM.Kindness = (decimal)dr["Kindness"];
+
+                //resultOfTaskVMs.Add(resultOfTaskVM);
+            }
+
+            return resultOfTaskVM;
+        }
+
         public ResultOfTaskViewModel GetResultOfTaskByUser(string userId)
         {
             try
@@ -2674,6 +3913,8 @@ namespace QMSWebAPI.DAL
                 ResultOfTaskViewModel resultOfTaskVM = new ResultOfTaskViewModel();
 
                 var resultOfTaskVMs = GetAllTaskResult(userId).FirstOrDefault();
+                var vm = GetDailyAndMonthlyTaskSumByUser(userId);
+
                 resultOfTaskVM.levlUpStatus = false;
 
                 if (resultOfTaskVMs == null)
@@ -2707,6 +3948,15 @@ namespace QMSWebAPI.DAL
                 var taskResult = GetResultTaskByUserId(userId).LastOrDefault();
                 var allNewResults = GetResultTaskByUserId(userId);
 
+
+                long newAllResultScore = 0;
+                foreach (var item in allNewResults)
+                {
+                    newAllResultScore += item.Score;
+                }
+
+                long point = resultOfTaskVM.Score - newAllResultScore;
+
                 if (taskResult == null)
                 {
                     TaskResult tr = new TaskResult();
@@ -2737,14 +3987,15 @@ namespace QMSWebAPI.DAL
 
                     //var preData = GetResultTaskByUserIdAndLevelUp(userId, preLevel).LastOrDefault();
 
-                    long newAllResultScore = 0;
-                    foreach (var item in allNewResults)
-                    {
-                        newAllResultScore += item.Score;
-                    }
+                    //long newAllResultScore = 0;
+                    //foreach (var item in allNewResults)
+                    //{
+                    //    newAllResultScore += item.Score;
+                    //}
 
                     int level = taskResult.LevelUp;
-                    long point = resultOfTaskVM.Score - newAllResultScore;
+                    //long point = resultOfTaskVM.Score - newAllResultScore;
+
 
                     int pointLevel = LevelCondition(level);
 
@@ -2769,8 +4020,14 @@ namespace QMSWebAPI.DAL
 
                 var taskResultLevlUp = GetResultTaskByUserId(userId).LastOrDefault();
 
-                resultOfTaskVM.Score = 0;
+                //resultOfTaskVM.Score = 0;
+                resultOfTaskVM.Score = point;
                 resultOfTaskVM.levelUp = taskResultLevlUp.LevelUp;
+
+                resultOfTaskVM.Co2 = vm.Co2;
+                resultOfTaskVM.Water = vm.Water;
+                resultOfTaskVM.Energy = vm.Energy;
+                resultOfTaskVM.Kindness = vm.Kindness;
 
                 return resultOfTaskVM;
             }
@@ -3041,6 +4298,15 @@ namespace QMSWebAPI.DAL
                                 obj.Energy = dtWFX.Rows[i][8].ToString();
                                 obj.Kindness = dtWFX.Rows[i][9].ToString();
 
+                                //var Co2 = dtWFX.Rows[i][6].ToString();
+                                //obj.Co2 = decimal.Parse(Co2);
+                                //var Water = dtWFX.Rows[i][7].ToString();
+                                //obj.Water = decimal.Parse(Water);
+                                //var Energy = dtWFX.Rows[i][8].ToString();
+                                //obj.Energy = decimal.Parse(Energy);
+                                //var Kindness = dtWFX.Rows[i][9].ToString();
+                                //obj.Kindness = decimal.Parse(Kindness);
+
                                 List<SqlParameter> aParameters = new List<SqlParameter>();
 
                                 aParameters.Add(new SqlParameter("@CreateDateTime", DateTime.Now));
@@ -3239,23 +4505,30 @@ namespace QMSWebAPI.DAL
                             DataTable dtWFX = dsexcelRecords.Tables[0];
                             for (int i = 1; i < dtWFX.Rows.Count; i++)
                             {
-
+                                var fileName = dtWFX.Rows[i][3].ToString();
+                                string imagePath = @"D:\PUBLISH PROJECTS\EnergyApi\SustainabilityImages";
+                                string imageUrl = @"/SustainabilityImages/" + fileName;
 
                                 MonthlyTaskList obj = new MonthlyTaskList();
                                 obj.BanglaName = dtWFX.Rows[i][0].ToString();
                                 obj.EnglishName = dtWFX.Rows[i][1].ToString();
                                 obj.Type = dtWFX.Rows[i][2].ToString();
+
                                 obj.ImageName = dtWFX.Rows[i][3].ToString();
-                                obj.ImagePath = dtWFX.Rows[i][4].ToString();
-                                obj.ImageUrl = dtWFX.Rows[i][5].ToString();
-                                obj.InfoLink = dtWFX.Rows[i][6].ToString();
-                                var sc = dtWFX.Rows[i][7].ToString();
+
+                                //obj.ImagePath = dtWFX.Rows[i][4].ToString();
+                                //obj.ImageUrl = dtWFX.Rows[i][5].ToString();
+                                obj.ImagePath = imagePath;
+                                obj.ImageUrl = imageUrl;
+
+                                obj.InfoLink = dtWFX.Rows[i][4].ToString();
+                                var sc = dtWFX.Rows[i][5].ToString();
                                 obj.SustainabilityCategoryId = long.Parse(sc);
 
-                                obj.Co2 = dtWFX.Rows[i][8].ToString();
-                                obj.Water = dtWFX.Rows[i][9].ToString();
-                                obj.Energy = dtWFX.Rows[i][10].ToString();
-                                obj.Kindness = dtWFX.Rows[i][11].ToString();
+                                obj.Co2 = dtWFX.Rows[i][6].ToString();
+                                obj.Water = dtWFX.Rows[i][7].ToString();
+                                obj.Energy = dtWFX.Rows[i][8].ToString();
+                                obj.Kindness = dtWFX.Rows[i][9].ToString();
 
                                 List<SqlParameter> aParameters = new List<SqlParameter>();
 
@@ -3669,63 +4942,66 @@ namespace QMSWebAPI.DAL
 
             if (level == 2)
             {
-                point = 5;
+                point = 50;
             }
             if (level == 3)
             {
-                point = 50;
+                point = 300;
             }
             if (level == 4)
             {
-                point = 300;
+                point = 1500;
             }
             if (level == 5)
             {
-                point = 1500;
+                point = 2500;
             }
             if (level == 6)
             {
-                point = 2500;
+                point = 3000;
             }
             if (level == 7)
             {
-                point = 3000;
+                point = 3500;
             }
             if (level == 8)
             {
-                point = 3500;
+                point = 3600;
             }
             if (level == 9)
             {
-                point = 3600;
+                point = 3700;
             }
             if (level == 10)
             {
-                point = 3700;
+                point = 3800;
             }
             if (level == 11)
             {
-                point = 3800;
+                point = 3900;
             }
             if (level == 12)
             {
-                point = 3900;
+                point = 4000;
             }
             if (level == 13)
             {
-                point = 4000;
+                point = 4050;
             }
             if (level == 14)
             {
-                point = 4050;
+                point = 4100;
             }
             if (level == 15)
             {
-                point = 4100;
+                point = 4150;
             }
 
             return point;
         }
+        #endregion
+
+        #region 
         #endregion
 
 

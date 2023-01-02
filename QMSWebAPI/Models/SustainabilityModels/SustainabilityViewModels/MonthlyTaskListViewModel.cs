@@ -24,6 +24,8 @@ namespace QMSWebAPI.Models.SustainabilityModels.SustainabilityViewModels
         public string Water { get; set; }
         public string Energy { get; set; }
         public string Kindness { get; set; }
+        public bool DisableStatus { get; set; }
+
 
         public IList<MonthlyTaskListDetailsViewModel> MonthlyTaskListDetailsViewModels { get; set; }
         

@@ -18,6 +18,10 @@ namespace QMSWebAPI.Models.SustainabilityModels
         public string Type { get; set; }
         public long Action { get; set; }
         public int LevelUp { get; set; }
+        public decimal Co2 { get; set; }
+        public decimal Water { get; set; }
+        public decimal Energy { get; set; }
+        public decimal Kindness { get; set; }
 
     }
 }

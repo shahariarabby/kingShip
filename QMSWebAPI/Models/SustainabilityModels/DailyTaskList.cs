@@ -27,5 +27,6 @@ namespace QMSWebAPI.Models.SustainabilityModels
         public string Kindness { get; set; }
 
 
+
     }
 }

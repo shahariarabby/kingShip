@@ -14,5 +14,7 @@ namespace QMSWebAPI.Models.SustainabilityModels
         public string LinkCode { get; set; }
         public string Type { get; set; }
         public long BusinessUnitId { get; set; }
+
+        public bool DisableStatus { get; set; }
     }
 }

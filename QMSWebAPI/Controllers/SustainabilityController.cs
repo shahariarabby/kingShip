@@ -21,6 +21,7 @@ using System.Web.Script.Serialization;
 
 namespace QMSWebAPI.Controllers
 {
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
 
     [RoutePrefix("api/Sustainability")]
     public class SustainabilityController : ApiController
@@ -47,7 +48,7 @@ namespace QMSWebAPI.Controllers
 
         [HttpGet]
         [Route("GetSustainabilitySurveyByUser")]
-        public IHttpActionResult GetSustainabilitySurveyByUser(long UserId)
+        public IHttpActionResult GetSustainabilitySurveyByUser(string UserId)
         {
             try
             {
@@ -86,7 +87,9 @@ namespace QMSWebAPI.Controllers
         {
             try
             {
-                return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsSimple());
+                //return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsSimple());
+                var type = "S";
+                return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsAllType(type));
             }
             catch (Exception e)
             {
@@ -100,7 +103,9 @@ namespace QMSWebAPI.Controllers
         {
             try
             {
-                return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsMedium());
+                //return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsMedium());
+                var type = "M";
+                return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsAllType(type));
             }
             catch (Exception e)
             {
@@ -114,7 +119,10 @@ namespace QMSWebAPI.Controllers
         {
             try
             {
-                return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsHard());
+
+                //return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsHard());
+                var type = "H";
+                return Json(this.SustainabilityDAL.GetDailyTaskListAndDetailsAllType(type));
             }
             catch (Exception e)
             {
@@ -195,11 +203,11 @@ namespace QMSWebAPI.Controllers
 
         [HttpGet]
         [Route("GetMonthlyTaskListAndDetails")]
-        public IHttpActionResult GetMonthlyTaskListAndDetails()
+        public IHttpActionResult GetMonthlyTaskListAndDetails(string userId)
         {
             try
             {
-                return Json(this.SustainabilityDAL.GetMonthlyTaskListAndDetails());
+                return Json(this.SustainabilityDAL.GetMonthlyTaskListAndDetailsRandomlyNew(userId));
             }
             catch (Exception e)
             {
@@ -213,7 +221,7 @@ namespace QMSWebAPI.Controllers
         {
             try
             {
-                return base.Json(this.SustainabilityDAL.SaveMonthlyTask(monthlyTask));
+                return base.Json(this.SustainabilityDAL.SaveMonthlyTaskNew(monthlyTask));
             }
             catch (Exception e)
             {
@@ -259,6 +267,20 @@ namespace QMSWebAPI.Controllers
 
         }
 
+        [HttpGet]
+        [Route("GetTaskdisableorNot")]
+        public IHttpActionResult GetTaskdisableorNot(long monthlyTaskId, string userId)
+        {
+            try
+            {
+                return Json(this.SustainabilityDAL.GetTaskdisableorNot(monthlyTaskId,userId));
+            }
+            catch (Exception e)
+            {
+                return base.Json(e.Message);
+            }
+        }
+
         #endregion
 
         #region Sustainability ContactUs
@@ -283,7 +305,7 @@ namespace QMSWebAPI.Controllers
         #endregion
 
 
-        #region daily Tips Task
+        #region Daily Tips Task
 
         [HttpGet]
         [Route("GetDailyTipsTask")]
@@ -338,6 +360,20 @@ namespace QMSWebAPI.Controllers
         #region Monthly Tips Task
 
         [HttpGet]
+        [Route("GetMonthlyTipsTaskListByeType")]
+        public IHttpActionResult GetMonthlyTipsTaskListByeType(string type,string userId)
+        {
+            try
+            {
+                return Json(this.SustainabilityDAL.GetMonthlyTipsTaskListByType(type,userId));
+            }
+            catch (Exception e)
+            {
+                return base.Json(e.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("GetMonthlyTipsTask")]
         public IHttpActionResult GetMonthlyTipsTask()
         {
@@ -387,7 +423,7 @@ namespace QMSWebAPI.Controllers
 
         #endregion
 
-        #region 
+        #region Task Result
 
         [HttpGet]
         [Route("GetResultOfTaskByUser")]

@@ -41,5 +41,8 @@ namespace QMSWebAPI.Models
         public string SubCategoryName { get; set; }
         public string Status { get; set; }
         public int IsApproved { get; set; }
+        public string Location { get; set; }
+        public string Reply { get; set; }
+        public int IsVisible { get; set; }
     }
 }

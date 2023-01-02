@@ -160,9 +160,9 @@ namespace QMSWebAPI.Controllers
             return base.Json(new { isSuccess = isSuccess, msg = msg, userdata = incentiveModel });
         }
         [HttpPost]
-        public IHttpActionResult SaveIncentiveData(int EmpBarcodeNo, string EmployeeCode, int OperationID, string OperationName,int BarcodeNo)
+        public IHttpActionResult SaveIncentiveData(int EmpBarcodeNo, string EmployeeCode, int OperationID, string OperationName,int BarcodeNo,int AllocatedQty,int UsedQty)
         {
-            return Json(IncentiveDAL.DataSaveToDatabase(EmpBarcodeNo, EmployeeCode, OperationID, OperationName, BarcodeNo));
+            return Json(IncentiveDAL.DataSaveToDatabase(EmpBarcodeNo, EmployeeCode, OperationID, OperationName, BarcodeNo, AllocatedQty,UsedQty));
         }
         [HttpGet]
          public IHttpActionResult RetriveOperation(string BusinessUnit, string ProductionFloor, string LineNumber)
@@ -175,6 +175,12 @@ namespace QMSWebAPI.Controllers
         public IHttpActionResult GetDataSave(string EmployeeCode, int OperationID)
         {
             return base.Json(this.IncentiveDAL.GetDataSave(EmployeeCode, OperationID));
+        }
+        [HttpGet]
+        // [Route("RetriveDataForCuttingAQLReport")]
+        public IHttpActionResult GetRemainingQty(int BarcodeNo, int OperationID)
+        {
+            return base.Json(this.IncentiveDAL.GetRemainingQty(BarcodeNo, OperationID));
         }
         [HttpGet]
         // [Route("RetriveDataForCuttingAQLReport")]

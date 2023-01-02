@@ -15,5 +15,10 @@ namespace QMSWebAPI.Models.SustainabilityModels
         public long Score { get; set; }
         public int levelUp { get; set; }
         public bool levlUpStatus { get; set; }
+
+        public decimal Co2 { get; set; }
+        public decimal Water { get; set; }
+        public decimal Energy { get; set; }
+        public decimal Kindness { get; set; }
     }
 }

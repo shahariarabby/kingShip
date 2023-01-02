@@ -145,7 +145,7 @@ namespace QMSWebAPI.DAL
             }
             return loginModel;
         }
-        public ResultResponse DataSaveToDatabase(int EmpBarcodeNo, string EmployeeCode, int OperationID, string OperationName, int BarcodeNo)
+        public ResultResponse DataSaveToDatabase(int EmpBarcodeNo, string EmployeeCode, int OperationID, string OperationName, int BarcodeNo,int AllocatedQty,int UsedQty)
         {
             IncentiveModel incentiveModel = new IncentiveModel();
             try
@@ -161,6 +161,8 @@ namespace QMSWebAPI.DAL
                     dynamicParameters.Add("@OperationID", OperationID);
                     dynamicParameters.Add("@OperationName", OperationName);
                     dynamicParameters.Add("@BarcodeNo", BarcodeNo);
+                    dynamicParameters.Add("@AllocatedQty", AllocatedQty);
+                    dynamicParameters.Add("@UsedQty", UsedQty);
                     incentiveModel.BarcoadCount = cnn.Query<IncentiveModel>("sp_DataSave", dynamicParameters, commandTimeout: 120000, commandType: new CommandType?(CommandType.StoredProcedure)).Select(s => s.BarcoadCount).FirstOrDefault();
                     return new ResultResponse()
                     {
@@ -286,6 +288,51 @@ namespace QMSWebAPI.DAL
                 return new ResultResponse()
                 {
                     data = incentiveModel.BarcoadCount,
+                    isSuccess = true
+                };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            //string dt = "";
+            //if (this.conn.State == 0)
+            //{
+            //    this.conn.Open();
+            //}
+            //SqlCommand cmd = new SqlCommand("sp_GetDataSave", this.conn)
+            //{
+            //    CommandTimeout = 12000,
+            //    CommandType = CommandType.StoredProcedure
+
+            //};
+            //cmd.Parameters.Add("@EmployeeCode", SqlDbType.Int).Value = EmployeeCode;
+            //cmd.Parameters.Add("@OperationID", SqlDbType.Int).Value = OperationID;
+            //(new SqlDataAdapter(cmd)).Fill(dt);
+            //return dt;
+        }
+        public ResultResponse GetRemainingQty(int BarcodeNo, int OperationID)
+        {
+            IncentiveModel incentiveModel = new IncentiveModel();
+            var line = string.Empty;
+            SqlConnection cnn = new SqlConnection(this.connStr);
+            try
+            {
+
+                if (cnn.State == ConnectionState.Closed)
+                    cnn.Open();
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@BarcodeNo", (object)BarcodeNo);
+                dynamicParameters.Add("@OperationID", (object)OperationID);
+                incentiveModel.RemainingQty = cnn.Query<IncentiveModel>("sp_GetRemainingQty", dynamicParameters, commandTimeout: 120000, commandType: new CommandType?(CommandType.StoredProcedure)).Select(s => s.RemainingQty).FirstOrDefault();
+
+                return new ResultResponse()
+                {
+                    data = Convert.ToString(incentiveModel.RemainingQty),
                     isSuccess = true
                 };
             }
